@@ -1,12 +1,15 @@
 import html
 import logging
+import os
 import time
 
 import requests
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 from selene import browser, query
 
 from pages.registration_page import RegistrationPage
+from tests.conftest import wiki_base_url
 
 
 def test_registration():
@@ -24,9 +27,11 @@ def test_registration():
 
 def test_registration_ui():
     registration_page = RegistrationPage(browser)
+    load_dotenv()
+
     registration_page.login_ui(browser)
-    browser.element('input[id=wpName1]').send_keys('KaliTesting')
-    browser.element('input[id=wpPassword1]').send_keys('commandoX12')
+    browser.element('input[id=wpName1]').send_keys(os.getenv('wplogin'))
+    browser.element('input[id=wpPassword1]').send_keys(os.getenv('wpPassword'))
     browser.element('button[id=wpLoginAttempt]').click()
     logging.info(browser.config.driver.get_cookies())
     time.sleep(5)
@@ -34,6 +39,7 @@ def test_registration_ui():
 
 def test_open_registration_page():
     registration_page = RegistrationPage(browser)
+    load_dotenv()
 
     registration_page.log_in(browser)
 
@@ -42,8 +48,8 @@ response = requests.post(
     "https://en.wikipedia.org/w/index.php?title=Special:UserLogin",
     data={
         "title": "Special:UserLogin",
-        "wpName": "KaliTesting",
-        "wpPassword": "commandoX12",
+        "wpName": os.getenv('wplogin'),
+        "wpPassword": os.getenv('wpPassword'),
         "wploginattempt": "Log in",
         "authAction": "login",
 
@@ -67,6 +73,7 @@ def test_registration_with_api():
 
 def test_registration_with_api_2():
     registration_page = RegistrationPage(browser)
+    load_dotenv()
 
     registration_page.log_in(browser)
     value = browser.element('input[name=wpLoginToken]').get(query.attribute('value'))
@@ -115,8 +122,8 @@ def test_registration_with_api_2():
         "https://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Main+Page",
         data={
             "title": "Special:UserLogin",
-            "wpName": "KaliTesting",
-            "wpPassword": "commandoX12",
+            "wpName": os.getenv('wplogin'),
+            "wpPassword": os.getenv('wpPassword'),
             "wploginattempt": "Log in",
             "wpEditToken": "+\\",
             "authAction": "login",
@@ -138,9 +145,11 @@ def test_registration_with_api_2():
 
 def test_registration_with_api_3():
     registration_page = RegistrationPage(browser)
+    load_dotenv()
 
     login_page_response = requests.post(
-        "https://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Main+Page",
+        #"https://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Main+Page",
+        f'{wiki_base_url}{registration_page.log_in_page_path}',
         allow_redirects=False
     )
     logging.info(login_page_response.status_code)
@@ -153,11 +162,12 @@ def test_registration_with_api_3():
     #logging.info(parse2)
 
     authorization_response = requests.post(
-        "https://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Main+Page",
+        #"https://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Main+Page",
+        f'{wiki_base_url}{registration_page.log_in_page_path}',
         data={
             "title": "Special:UserLogin",
-            "wpName": "KaliTesting",
-            "wpPassword": "commandoX12",
+            "wpName": os.getenv('wplogin'),
+            "wpPassword": os.getenv("wpPassword"),
             "wploginattempt": "Log in",
             "wpEditToken": "+\\",
             "authAction": "login",
