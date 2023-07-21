@@ -7,7 +7,7 @@ user_main_page = UserMainPage()
 registarionThroughtApi = RegistarionThroughtApi()
 
 
-def test_registration_ui():
+def test_authorization_ui():
     registration_page.open_login_page()
     registration_page.set_login()
     registration_page.set_password()
@@ -15,7 +15,7 @@ def test_registration_ui():
     user_main_page.should_have_welcome_and_name()
 
 
-def test_registration_through_api():
+def test_authorization_through_api():
     login_page_response = registarionThroughtApi.request_login_page()
     reponse_wpLoginToken = registarionThroughtApi.get_loginToken_from_response(login_page_response)
     authorization_response = registarionThroughtApi.request_authorization(reponse_wpLoginToken,
