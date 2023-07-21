@@ -1,6 +1,7 @@
 import os
 import time
 
+import allure
 from dotenv import load_dotenv
 from selene.support.shared import browser
 
@@ -17,21 +18,23 @@ class RegistrationPage:
         self.password = browser.element('input[id=wpPassword1]')
         self.login_attempt_button = browser.element('button[id=wpLoginAttempt]')
 
-    def log_in(self):
-        browser.open(self.log_in_page_path)
-
+    @allure.step('Open Log in page')
     def open_login_page(self):
         browser.open(self.log_in_page_path)
 
+    @allure.step('Type login')
     def set_login(self):
         self.login.send_keys(os.getenv('wplogin'))
 
+    @allure.step('Type password')
     def set_password(self):
         self.password.send_keys(os.getenv('wpPassword'))
 
+    @allure.step('Click on button Log in')
     def login_attempt(self):
         self.login_attempt_button.click()
 
+    @allure.step('Open user main page')
     def open_user_main_page(self, cookies):
         browser.open(self.user_main_page_path)
         time.sleep(1)
