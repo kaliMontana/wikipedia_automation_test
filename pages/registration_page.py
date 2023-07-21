@@ -32,7 +32,7 @@ class RegistrationPage:
     def login_attempt(self):
         self.login_attempt_button.click()
 
-    def set_cookies_in_user_main_page(self, cookies):
+    def open_user_main_page(self, cookies):
         browser.open(self.user_main_page_path)
         time.sleep(1)
 
