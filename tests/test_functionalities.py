@@ -1,4 +1,5 @@
 import allure
+from allure_commons.types import Severity
 
 from pages.api_pages import RegistrationThroughApi
 from pages.registration_page import RegistrationPage
@@ -9,6 +10,7 @@ user_main_page = UserMainPage()
 registrationThroughApi = RegistrationThroughApi()
 
 
+@allure.severity(Severity.CRITICAL)
 @allure.feature('User interface authorization')
 @allure.title('Authorization')
 def test_authorization_ui():
@@ -19,6 +21,7 @@ def test_authorization_ui():
     user_main_page.should_have_welcome_and_name()
 
 
+@allure.severity(Severity.CRITICAL)
 @allure.feature('Api authorization')
 @allure.title('Authorization')
 def test_authorization_through_api():
