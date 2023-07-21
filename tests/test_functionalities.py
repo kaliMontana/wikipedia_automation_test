@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from selene import browser, query
 
 from pages.registration_page import RegistrationPage
+from pages.user_main_page import UserMainPage
 from tests.conftest import wiki_base_url
 
 
@@ -26,15 +27,15 @@ def test_registration():
 
 
 def test_registration_ui():
-    registration_page = RegistrationPage(browser)
+    registration_page = RegistrationPage()
+    user_main_page = UserMainPage()
     load_dotenv()
 
-    registration_page.login_ui(browser)
-    browser.element('input[id=wpName1]').send_keys(os.getenv('wplogin'))
-    browser.element('input[id=wpPassword1]').send_keys(os.getenv('wpPassword'))
-    browser.element('button[id=wpLoginAttempt]').click()
-    logging.info(browser.config.driver.get_cookies())
-    time.sleep(5)
+    registration_page.open_login_page()
+    registration_page.set_login()
+    registration_page.set_password()
+    registration_page.login_attempt()
+    user_main_page.should_have_welcome_and_name()
 
 
 def test_open_registration_page():
@@ -144,11 +145,11 @@ def test_registration_with_api_2():
 
 
 def test_registration_with_api_3():
-    registration_page = RegistrationPage(browser)
+    registration_page = RegistrationPage()
     load_dotenv()
 
     login_page_response = requests.post(
-        #"https://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Main+Page",
+        # "https://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Main+Page",
         f'{wiki_base_url}{registration_page.log_in_page_path}',
         allow_redirects=False
     )
@@ -159,10 +160,10 @@ def test_registration_with_api_3():
     # logging.info(parse)
 
     reponse_wpLoginToken = response_parser.select('input[name=wpLoginToken]')[0].get('value')
-    #logging.info(parse2)
+    # logging.info(parse2)
 
     authorization_response = requests.post(
-        #"https://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Main+Page",
+        # "https://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Main+Page",
         f'{wiki_base_url}{registration_page.log_in_page_path}',
         data={
             "title": "Special:UserLogin",
@@ -180,11 +181,13 @@ def test_registration_with_api_3():
         allow_redirects=False
     )
 
+    # assert authorization_response.status_code == 302
+    assert authorization_response.status_code == requests.codes.found
+
     logging.info(authorization_response.status_code)
-    #logging.info(html.unescape(authorization_response.text))
+    # logging.info(html.unescape(authorization_response.text))
     logging.info(authorization_response.cookies)
-    logging.info(requests.utils.dict_from_cookiejar(authorization_response.cookies))
+    # logging.info(requests.utils.dict_from_cookiejar(authorization_response.cookies))
 
-    registration_page.user_main_page(authorization_response.cookies)
+    registration_page.set_cookies_in_user_main_page(authorization_response.cookies)
     time.sleep(5)
-
