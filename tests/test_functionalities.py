@@ -1,12 +1,12 @@
 import allure
 
-from pages.api_pages import RegistarionThroughtApi
+from pages.api_pages import RegistrationThroughApi
 from pages.registration_page import RegistrationPage
 from pages.user_main_page import UserMainPage
 
 registration_page = RegistrationPage()
 user_main_page = UserMainPage()
-registarionThroughtApi = RegistarionThroughtApi()
+registrationThroughApi = RegistrationThroughApi()
 
 
 @allure.feature('User interface authorization')
@@ -22,9 +22,9 @@ def test_authorization_ui():
 @allure.feature('Api authorization')
 @allure.title('Authorization')
 def test_authorization_through_api():
-    login_page_response = registarionThroughtApi.request_login_page()
-    reponse_wpLoginToken = registarionThroughtApi.get_loginToken_from_response(login_page_response)
-    authorization_response = registarionThroughtApi.request_authorization(reponse_wpLoginToken,
+    login_page_response = registrationThroughApi.request_login_page()
+    reponse_wpLoginToken = registrationThroughApi.get_loginToken(login_page_response)
+    authorization_response = registrationThroughApi.request_authorization(reponse_wpLoginToken,
                                                                           login_page_response.cookies)
 
     registration_page.open_user_main_page(authorization_response.cookies)
