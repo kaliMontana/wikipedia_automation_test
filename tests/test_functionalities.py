@@ -66,8 +66,6 @@ def test_add_article_ui():
     watchListPage.go_to_view_and_edit_watch_list()
     watchListPage.check_if_page_title_is_in_list(WORD_TO_SEARCH)
 
-    #time.sleep(5)
-
 
 @allure.tag('API version')
 @allure.severity(Severity.CRITICAL)
