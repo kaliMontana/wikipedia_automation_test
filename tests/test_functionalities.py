@@ -1,3 +1,5 @@
+import time
+
 import allure
 from allure_commons.types import Severity
 
@@ -5,10 +7,13 @@ from pages.api_pages import RegistrationThroughApi
 from pages.article_page import ArticlePage
 from pages.registration_page import RegistrationPage
 from pages.user_main_page import UserMainPage
+from pages.watch_list_page import WatchListPage
 
 registration_page = RegistrationPage()
 user_main_page = UserMainPage()
 article_page = ArticlePage()
+watchListPage = WatchListPage()
+
 registrationThroughApi = RegistrationThroughApi()
 
 WORD_TO_SEARCH = 'Wikimedia Foundation'
@@ -39,6 +44,29 @@ def test_search_ui():
 
     user_main_page.search(WORD_TO_SEARCH)
     article_page.check_page_title(WORD_TO_SEARCH)
+
+
+@allure.tag('UI version')
+@allure.severity(Severity.CRITICAL)
+@allure.feature('Add article to watch list')
+@allure.title('UI Add article')
+def test_add_article_ui():
+    registration_page.open_login_page()
+    registration_page.set_login()
+    registration_page.set_password()
+    registration_page.login_attempt()
+    user_main_page.should_have_welcome_and_name()
+
+    user_main_page.search(WORD_TO_SEARCH)
+    article_page.check_page_title(WORD_TO_SEARCH)
+
+    article_page.add_article()
+    article_page.go_to_watch_list()
+    watchListPage.check_page_title()
+    watchListPage.go_to_view_and_edit_watch_list()
+    watchListPage.check_if_page_title_is_in_list(WORD_TO_SEARCH)
+
+    #time.sleep(5)
 
 
 @allure.tag('API version')
