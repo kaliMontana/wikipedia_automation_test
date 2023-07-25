@@ -7,7 +7,17 @@ class ArticlePage:
 
     def __init__(self):
         self.page_title_main = s('h1[id=firstHeading] span[class*=page-title-main]')
+        self.add_article_to_watchlist = s('#ca-watch a[title*="Add this page"]')
+        self.go_to_watch_list_page = s("#pt-watchlist-2 a[title*='The list of pages']")
 
     @allure.step('Check the page title main {title}')
     def check_page_title(self, title):
         self.page_title_main.should(have.exact_text(title))
+
+    @allure.step('Add article to watch list')
+    def add_article(self):
+        self.add_article_to_watchlist.click()
+
+    @allure.step('Go to watch list')
+    def go_to_watch_list(self):
+        self.go_to_watch_list_page.click()
