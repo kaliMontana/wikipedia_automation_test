@@ -12,6 +12,7 @@ registrationThroughApi = RegistrationThroughApi()
 WORD_TO_SEARCH = 'Wikimedia Foundation'
 
 
+@allure.tag('UI version')
 @allure.severity(Severity.CRITICAL)
 @allure.feature('User interface authorization')
 @allure.title('Authorization')
@@ -38,6 +39,7 @@ def test_search_ui():
     user_main_page.check_page_title(WORD_TO_SEARCH)
 
 
+@allure.tag('API version')
 @allure.severity(Severity.CRITICAL)
 @allure.feature('Api authorization')
 @allure.title('Authorization')
