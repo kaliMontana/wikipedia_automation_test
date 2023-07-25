@@ -2,11 +2,13 @@ import allure
 from allure_commons.types import Severity
 
 from pages.api_pages import RegistrationThroughApi
+from pages.article_page import ArticlePage
 from pages.registration_page import RegistrationPage
 from pages.user_main_page import UserMainPage
 
 registration_page = RegistrationPage()
 user_main_page = UserMainPage()
+article_page = ArticlePage()
 registrationThroughApi = RegistrationThroughApi()
 
 WORD_TO_SEARCH = 'Wikimedia Foundation'
@@ -36,7 +38,7 @@ def test_search_ui():
     user_main_page.should_have_welcome_and_name()
 
     user_main_page.search(WORD_TO_SEARCH)
-    user_main_page.check_page_title(WORD_TO_SEARCH)
+    article_page.check_page_title(WORD_TO_SEARCH)
 
 
 @allure.tag('API version')
