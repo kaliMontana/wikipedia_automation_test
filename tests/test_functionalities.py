@@ -30,5 +30,5 @@ def test_authorization_through_api():
     authorization_response = registrationThroughApi.request_authorization(reponse_wpLoginToken,
                                                                           login_page_response.cookies)
 
-    registration_page.open_user_main_page(authorization_response.cookies)
+    registration_page.open_user_main_page_and_set_cookies(authorization_response.cookies)
     user_main_page.should_have_welcome_and_name()
