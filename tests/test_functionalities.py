@@ -1,5 +1,3 @@
-import time
-
 import allure
 from allure_commons.types import Severity
 
