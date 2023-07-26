@@ -16,7 +16,7 @@ class UserMainPage:
         self.search_button = s('#searchform button[class~=cdx-button]')
 
     @allure.step('Check welcome title and user name in user main page')
-    def should_have_welcome_and_name(self):
+    def should_have_welcome_and_user_name(self):
         assert self.welcome_wp.should(have.text('Welcome to'))
         assert self.your_home_page.should(have.exact_text(os.getenv('wplogin')))
 
