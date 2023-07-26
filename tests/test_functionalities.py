@@ -26,7 +26,7 @@ def test_authorization_ui():
     registration_page.set_login()
     registration_page.set_password()
     registration_page.login_attempt()
-    user_main_page.should_have_welcome_and_name()
+    user_main_page.should_have_welcome_and_user_name()
 
 
 @allure.tag('UI version')
@@ -38,7 +38,7 @@ def test_search_ui():
     registration_page.set_login()
     registration_page.set_password()
     registration_page.login_attempt()
-    user_main_page.should_have_welcome_and_name()
+    user_main_page.should_have_welcome_and_user_name()
 
     user_main_page.search(WORD_TO_SEARCH)
     article_page.check_page_title(WORD_TO_SEARCH)
@@ -53,7 +53,7 @@ def test_add_article_ui():
     registration_page.set_login()
     registration_page.set_password()
     registration_page.login_attempt()
-    user_main_page.should_have_welcome_and_name()
+    user_main_page.should_have_welcome_and_user_name()
 
     user_main_page.search(WORD_TO_SEARCH)
     article_page.check_page_title(WORD_TO_SEARCH)
@@ -76,4 +76,4 @@ def test_authorization_through_api():
                                                                           login_page_response.cookies)
 
     registration_page.open_user_main_page_and_set_cookies(authorization_response.cookies)
-    user_main_page.should_have_welcome_and_name()
+    user_main_page.should_have_welcome_and_user_name()
