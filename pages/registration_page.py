@@ -12,7 +12,8 @@ class RegistrationPage:
     load_dotenv()
 
     def __init__(self):
-        self.log_in_page_path = '/w/index.php?title=Special:UserLogin&returnto=Main+Page'
+        self.log_in_page_path = '/w/index.php'
+        self.log_in_page_auth_query = '?title=Special:UserLogin&returnto=Main+Page'
         self.user_main_page_path = '/wiki/Main_Page'
         self.login = browser.element('input[id=wpName1]')
         self.password = browser.element('input[id=wpPassword1]')
@@ -20,7 +21,7 @@ class RegistrationPage:
 
     @allure.step('Open Log in page')
     def open_login_page(self):
-        browser.open(self.log_in_page_path)
+        browser.open(f'{self.log_in_page_path}{self.log_in_page_auth_query}')
 
     @allure.step('Type login')
     def set_login(self):

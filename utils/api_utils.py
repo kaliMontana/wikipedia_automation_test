@@ -14,7 +14,7 @@ load_dotenv()
 
 def request_to_login_page():
     login_page_response = requests.post(
-        f'{wiki_base_url}{registration_page.log_in_page_path}',
+        f'{wiki_base_url}{registration_page.log_in_page_path}{registration_page.log_in_page_auth_query}',
         allow_redirects=False
     )
 
@@ -30,7 +30,7 @@ def get_loginToken_from_response(login_page_response):
 
 def request_for_authorization(reponse_wpLoginToken, cookies):
     authorization_response = requests.post(
-        f'{wiki_base_url}{registration_page.log_in_page_path}',
+        f'{wiki_base_url}{registration_page.log_in_page_path}{registration_page.log_in_page_auth_query}',
         data={
             "title": "Special:UserLogin",
             "wpName": os.getenv('wplogin'),
