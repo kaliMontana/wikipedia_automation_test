@@ -13,7 +13,7 @@ class ArticlePage:
         self.go_to_watch_list_page = s("#pt-watchlist-2 a[title*='The list of pages']")
         self.add_star_icon_selector = '#ca-watch a[title*="Add this page"]'
 
-    @allure.step('Check the page title main {title}')
+    @allure.step('Check that the article page have title {title}')
     def check_page_title(self, title):
         self.page_title_main.should(have.exact_text(title))
 
