@@ -20,7 +20,7 @@ WORD_TO_SEARCH = 'Wikimedia Foundation'
 @allure.tag('UI version')
 @allure.severity(Severity.CRITICAL)
 @allure.feature('User interface authorization')
-@allure.title('Authorization through API')
+@allure.title('User authorization through API')
 def test_authorization_ui():
     registration_page.open_login_page()
     registration_page.set_login()
@@ -68,7 +68,7 @@ def test_add_article_ui():
 @allure.tag('API version')
 @allure.severity(Severity.CRITICAL)
 @allure.feature('Api authorization')
-@allure.title('Authorization through API')
+@allure.title('User authorization through API')
 def test_authorization_through_api():
     login_page_response = registrationThroughApi.request_login_page()
     reponse_wpLoginToken = registrationThroughApi.get_loginToken(login_page_response)
