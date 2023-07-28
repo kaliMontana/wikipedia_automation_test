@@ -1,69 +1,21 @@
-import html
-import os
-
-import requests
-from bs4 import BeautifulSoup
-from dotenv import load_dotenv
-
-from pages.registration_page import RegistrationPage
-from tests.conftest import wiki_base_url
-
-registration_page = RegistrationPage()
-load_dotenv()
+from selene.support.shared import browser
 
 
-def request_to_login_page():
-    login_page_response = requests.post(
-        f'{wiki_base_url}{registration_page.log_in_page_path}{registration_page.log_in_page_auth_query}',
-        allow_redirects=False
-    )
-
-    assert login_page_response.status_code == requests.codes.ok
-    return login_page_response
-
-
-def get_loginToken_from_response(login_page_response):
-    response_parser = BeautifulSoup(html.unescape(login_page_response.text), 'html.parser')
-    reponse_wpLoginToken = response_parser.select('input[name=wpLoginToken]')[0].get('value')
-    return reponse_wpLoginToken
+def set_response_cookies_to_browser(cookies):
+    browser.driver.add_cookie({'name': 'enwikiSession', 'value': cookies.get('enwikiSession')})
+    browser.driver.add_cookie({'name': 'enwikiUserID', 'value': cookies.get('enwikiUserID')})
+    browser.driver.add_cookie({'name': 'enwikiUserName', 'value': cookies.get('enwikiUserName')})
+    browser.driver.add_cookie({'name': 'loginnotify_prevlogins', 'value': cookies.get('loginnotify_prevlogins')})
+    browser.driver.add_cookie({'name': 'cpPosIndex', 'value': cookies.get('cpPosIndex')})
+    browser.driver.add_cookie({'name': 'UseDC', 'value': cookies.get('UseDC')})
+    browser.driver.add_cookie({'name': 'NetworkProbeLimit', 'value': cookies.get('NetworkProbeLimit')})
+    browser.driver.add_cookie({'name': 'centralauth_User', 'value': cookies.get('centralauth_User')})
+    browser.driver.add_cookie({'name': 'centralauth_Session', 'value': cookies.get('centralauth_Session')})
 
 
-def request_for_authorization(reponse_wpLoginToken, cookies):
-    authorization_response = requests.post(
-        f'{wiki_base_url}{registration_page.log_in_page_path}{registration_page.log_in_page_auth_query}',
-        data={
-            "title": "Special:UserLogin",
-            "wpName": os.getenv('wplogin'),
-            "wpPassword": os.getenv("wpPassword"),
-            "wploginattempt": "Log in",
-            "wpEditToken": "+\\",
-            "authAction": "login",
-            "force": "",
-            "wpLoginToken": reponse_wpLoginToken,
-            "geEnabled": "-1",
-            "forceMentor": ""
-        },
-        cookies=cookies,
-        allow_redirects=False
-    )
-
-    assert authorization_response.status_code == requests.codes.found
-
-    return authorization_response
-
-
-def request_for_article_search(cookies):
-    search_response = requests.get(
-        f'{wiki_base_url}{registration_page.log_in_page_path}',
-        params={
-            "search": "Wikimedia Foundation",
-            "title": 'Special:Search',
-            "wprov": 'acrw1_-1'
-        },
-        cookies=cookies,
-        allow_redirects=True
-    )
-
-    assert search_response.status_code == requests.codes.ok
-
-    return search_response
+def requests_parameters():
+    return {
+        "search": "Wikimedia Foundation",
+        "title": 'Special:Search',
+        "wprov": 'acrw1_-1'
+    }
