@@ -50,3 +50,20 @@ def request_for_authorization(reponse_wpLoginToken, cookies):
     assert authorization_response.status_code == requests.codes.found
 
     return authorization_response
+
+
+def request_for_article_search(cookies):
+    search_response = requests.get(
+        f'{wiki_base_url}{registration_page.log_in_page_path}',
+        params={
+            "search": "Wikimedia Foundation",
+            "title": 'Special:Search',
+            "wprov": 'acrw1_-1'
+        },
+        cookies=cookies,
+        allow_redirects=True
+    )
+
+    assert search_response.status_code == requests.codes.ok
+
+    return search_response
