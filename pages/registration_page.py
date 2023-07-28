@@ -19,7 +19,7 @@ class RegistrationPage:
         self.password = browser.element('input[id=wpPassword1]')
         self.login_attempt_button = browser.element('button[id=wpLoginAttempt]')
 
-    @allure.step('Open Log in page')
+    @allure.step('Open "Log in" page')
     def open_login_page(self):
         browser.open(f'{self.log_in_page_path}{self.log_in_page_auth_query}')
 
