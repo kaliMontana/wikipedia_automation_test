@@ -15,6 +15,7 @@ watchListPage = WatchListPage()
 registrationThroughApi = RegistrationThroughApi()
 
 WORD_TO_SEARCH = 'Wikimedia Foundation'
+PAGE_ARTICLE_TITLE = 'Wikimedia Foundation - Wikipedia'
 
 
 @allure.tag('UI version')
@@ -77,3 +78,17 @@ def test_authorization_through_api():
 
     registration_page.open_user_main_page_and_set_cookies(authorization_response.cookies)
     user_main_page.should_have_welcome_and_user_name()
+
+
+@allure.tag('API version')
+@allure.severity(Severity.CRITICAL)
+@allure.feature('Api Search article')
+@allure.title('Search article through API')
+def test_search_article_through_api():
+    login_page_response = registrationThroughApi.request_login_page()
+    reponse_wpLoginToken = registrationThroughApi.get_loginToken(login_page_response)
+    registrationThroughApi.request_authorization(reponse_wpLoginToken,
+                                                 login_page_response.cookies)
+
+    search_response = registrationThroughApi.request_article_search(login_page_response.cookies)
+    registrationThroughApi.check_page_title_and_url(search_response, PAGE_ARTICLE_TITLE, WORD_TO_SEARCH)
