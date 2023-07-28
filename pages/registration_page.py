@@ -5,7 +5,7 @@ import allure
 from dotenv import load_dotenv
 from selene.support.shared import browser
 
-from utils.set_cookies import set_response_cookies_to_browser
+from utils.api_utils import set_response_cookies_to_browser
 
 
 class RegistrationPage:
