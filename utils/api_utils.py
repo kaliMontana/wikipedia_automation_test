@@ -13,7 +13,7 @@ def set_response_cookies_to_browser(cookies):
     browser.driver.add_cookie({'name': 'centralauth_Session', 'value': cookies.get('centralauth_Session')})
 
 
-def requests_parameters():
+def search_request_parameters():
     return {
         "search": "Wikimedia Foundation",
         "title": 'Special:Search',
