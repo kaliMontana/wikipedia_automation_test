@@ -90,5 +90,5 @@ def test_search_article_through_api():
     registrationThroughApi.request_authorization(reponse_wpLoginToken,
                                                  login_page_response.cookies)
 
-    search_response = registrationThroughApi.request_article_search(login_page_response.cookies)
+    search_response = registrationThroughApi.request_article_search(login_page_response.cookies, WORD_TO_SEARCH)
     registrationThroughApi.check_page_title_and_url(search_response, PAGE_ARTICLE_TITLE, WORD_TO_SEARCH)

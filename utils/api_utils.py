@@ -30,9 +30,9 @@ def auth_request_parameters(reponse_wpLoginToken):
     }
 
 
-def search_request_parameters():
+def search_request_parameters(word_to_search):
     return {
-        "search": "Wikimedia Foundation",
+        "search": word_to_search,
         "title": 'Special:Search',
         "wprov": 'acrw1_-1'
     }

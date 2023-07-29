@@ -30,8 +30,8 @@ class RegistrationThroughApi():
         return authorization_response
 
     @allure.step('Send request to search an article')
-    def request_article_search(self, cookies):
-        article_search_response = request_for_article_search(cookies)
+    def request_article_search(self, cookies, word_to_search):
+        article_search_response = request_for_article_search(cookies, word_to_search)
         logging.info(article_search_response.url)
         return article_search_response
 

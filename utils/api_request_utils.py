@@ -41,10 +41,10 @@ def request_for_authorization(reponse_wpLoginToken, cookies):
     return authorization_response
 
 
-def request_for_article_search(cookies):
+def request_for_article_search(cookies, word_to_search):
     search_response = requests.get(
         f'{wiki_base_url}{registration_page.log_in_page_path}',
-        params=search_request_parameters(),
+        params=search_request_parameters(word_to_search),
         cookies=cookies,
         allow_redirects=True
     )
