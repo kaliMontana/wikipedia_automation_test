@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 
 from pages.registration_page import RegistrationPage
 from tests.conftest import wiki_base_url
+from utils.api_utils import requests_parameters
 
 registration_page = RegistrationPage()
 load_dotenv()
@@ -55,11 +56,7 @@ def request_for_authorization(reponse_wpLoginToken, cookies):
 def request_for_article_search(cookies):
     search_response = requests.get(
         f'{wiki_base_url}{registration_page.log_in_page_path}',
-        params={
-            "search": "Wikimedia Foundation",
-            "title": 'Special:Search',
-            "wprov": 'acrw1_-1'
-        },
+        params=requests_parameters(),
         cookies=cookies,
         allow_redirects=True
     )
