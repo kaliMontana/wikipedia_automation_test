@@ -1,5 +1,4 @@
 import html
-import os
 
 import requests
 from bs4 import BeautifulSoup
@@ -7,7 +6,7 @@ from dotenv import load_dotenv
 
 from pages.registration_page import RegistrationPage
 from tests.conftest import wiki_base_url
-from utils.api_utils import search_request_parameters
+from utils.api_utils import search_request_parameters, auth_request_parameters
 
 registration_page = RegistrationPage()
 load_dotenv()
@@ -32,18 +31,7 @@ def get_loginToken_from_response(login_page_response):
 def request_for_authorization(reponse_wpLoginToken, cookies):
     authorization_response = requests.post(
         f'{wiki_base_url}{registration_page.log_in_page_path}{registration_page.log_in_page_auth_query}',
-        data={
-            "title": "Special:UserLogin",
-            "wpName": os.getenv('wplogin'),
-            "wpPassword": os.getenv("wpPassword"),
-            "wploginattempt": "Log in",
-            "wpEditToken": "+\\",
-            "authAction": "login",
-            "force": "",
-            "wpLoginToken": reponse_wpLoginToken,
-            "geEnabled": "-1",
-            "forceMentor": ""
-        },
+        data=auth_request_parameters(reponse_wpLoginToken),
         cookies=cookies,
         allow_redirects=False
     )
