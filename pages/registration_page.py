@@ -3,7 +3,9 @@ import time
 
 import allure
 from dotenv import load_dotenv
-from selene.support.shared import browser
+
+"""from tests.conftest import browser_setup
+from selene.support.shared import browser"""
 
 from utils.api_utils import set_response_cookies_to_browser
 
@@ -11,7 +13,7 @@ from utils.api_utils import set_response_cookies_to_browser
 class RegistrationPage:
     load_dotenv()
 
-    def __init__(self):
+    def __init__(self, browser):
         self.log_in_page_path = '/w/index.php'
         self.log_in_page_auth_query = '?title=Special:UserLogin&returnto=Main+Page'
         self.user_main_page_path = '/wiki/Main_Page'
@@ -20,7 +22,7 @@ class RegistrationPage:
         self.login_attempt_button = browser.element('button[id=wpLoginAttempt]')
 
     @allure.step('Open "Log in" page')
-    def open_login_page(self):
+    def open_login_page(self, browser):
         browser.open(f'{self.log_in_page_path}{self.log_in_page_auth_query}')
 
     @allure.step('Type login')
@@ -36,7 +38,7 @@ class RegistrationPage:
         self.login_attempt_button.click()
 
     @allure.step('Open user main page')
-    def open_user_main_page_and_set_cookies(self, cookies):
+    def open_user_main_page_and_set_cookies(self, browser, cookies):
         browser.open(self.user_main_page_path)
         time.sleep(1)
 

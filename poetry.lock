@@ -562,20 +562,19 @@ webdriver-manager = ">=3.8.5"
 
 [[package]]
 name = "selenium"
-version = "4.10.0"
+version = "4.5.0"
 description = ""
 optional = false
-python-versions = ">=3.7"
+python-versions = "~=3.7"
 files = [
-    {file = "selenium-4.10.0-py3-none-any.whl", hash = "sha256:40241b9d872f58959e9b34e258488bf11844cd86142fd68182bd41db9991fc5c"},
-    {file = "selenium-4.10.0.tar.gz", hash = "sha256:871bf800c4934f745b909c8dfc7d15c65cf45bd2e943abd54451c810ada395e3"},
+    {file = "selenium-4.5.0-py3-none-any.whl", hash = "sha256:a733dd77d3171b846893f4d51b18967d809313f547a10974e26579f9ce797462"},
 ]
 
 [package.dependencies]
 certifi = ">=2021.10.8"
 trio = ">=0.17,<1.0"
 trio-websocket = ">=0.9,<1.0"
-urllib3 = {version = ">=1.26,<3", extras = ["socks"]}
+urllib3 = {version = ">=1.26,<2.0", extras = ["socks"]}
 
 [[package]]
 name = "sniffio"
@@ -729,4 +728,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "728b90eba308bad8b55b6d6f4b3117fb2cfd925b51c098f27dfa0319b955073e"
+content-hash = "6103d5b521484203cd7d50deac61d6e04555b823891a83707299b51b131c033d"

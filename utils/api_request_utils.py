@@ -5,10 +5,11 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 from pages.registration_page import RegistrationPage
-from tests.conftest import wiki_base_url
+from tests.conftest import wiki_base_url, browser_setup
 from utils.api_utils import search_request_parameters, auth_request_parameters
 
-registration_page = RegistrationPage()
+browser = browser_setup
+registration_page = RegistrationPage(browser)
 load_dotenv()
 
 
