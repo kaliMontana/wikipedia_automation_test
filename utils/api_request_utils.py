@@ -8,8 +8,7 @@ from pages.registration_page import RegistrationPage
 from tests.conftest import wiki_base_url, browser_setup
 from utils.api_utils import search_request_parameters, auth_request_parameters
 
-browser = browser_setup
-registration_page = RegistrationPage(browser)
+registration_page = RegistrationPage(browser_setup)
 load_dotenv()
 
 
