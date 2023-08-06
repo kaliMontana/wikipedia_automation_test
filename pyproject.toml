@@ -17,7 +17,6 @@ curlify = "2.2.1"
 jsonschema = "4.17.3"
 beautifulsoup4 = "4.12.0"
 allure-pytest = "2.13.2"
-selenium = "4.5.0"
 
 
 [build-system]
