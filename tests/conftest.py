@@ -52,10 +52,6 @@ def browser_setup(request):
         options=options
     )
     browser = Browser(Config(driver=driver, base_url=wiki_base_url, window_width=1920, window_height=1080))
-    # browser.config.driver = driver
-    # browser.config.base_url = f"https://{login}:{password}@selenoid.autotests.cloud/wd/hub/"
-    # browser.config.window_width = 1920
-    # browser.config.window_height = 1080
 
     yield browser
 
