@@ -36,10 +36,10 @@ class RegistrationPage:
         self.browser.element(self.login_attempt_button).click()
 
     @allure.step('Open user main page')
-    def open_user_main_page_and_set_cookies(self, browser, cookies):
-        browser.open(self.user_main_page_path)
+    def open_user_main_page_and_set_cookies(self, cookies):
+        self.browser.open(self.user_main_page_path)
         time.sleep(1)
 
-        set_response_cookies_to_browser(cookies)
+        set_response_cookies_to_browser(self.browser, cookies)
 
-        browser.open(self.user_main_page_path)
+        self.browser.open(self.user_main_page_path)

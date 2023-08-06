@@ -1,9 +1,7 @@
 import os
 
-from selene.support.shared import browser
 
-
-def set_response_cookies_to_browser(cookies):
+def set_response_cookies_to_browser(browser, cookies):
     browser.driver.add_cookie({'name': 'enwikiSession', 'value': cookies.get('enwikiSession')})
     browser.driver.add_cookie({'name': 'enwikiUserID', 'value': cookies.get('enwikiUserID')})
     browser.driver.add_cookie({'name': 'enwikiUserName', 'value': cookies.get('enwikiUserName')})
