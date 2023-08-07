@@ -28,7 +28,7 @@ def load_env():
 @pytest.fixture(scope='function', autouse=True)
 def browser_setup(request):
     if request.config.getoption('--environment') == 'local':
-        from selene import browser
+        from selene.support.shared import browser
 
         browser.config.window_width = 1920
         browser.config.window_height1080 = 1080
