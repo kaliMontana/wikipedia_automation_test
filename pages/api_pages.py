@@ -9,7 +9,7 @@ from utils.api_request_utils import request_to_login_page, request_for_authoriza
     request_for_article_search
 
 
-class RegistrationThroughApi():
+class RegistrationThroughApi:
     def __init__(self):
         self.wiki_path = '/wiki/'
         self.page_article_title_selector = 'h1[id=firstHeading] span[class*=page-title-main]'
