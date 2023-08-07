@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "wikipedia_automation_test"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "3.10.5"
 pytest = "7.4.0"
 selene = "2.0.0b17"
 python-dotenv = "1.0.0"
