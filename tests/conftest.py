@@ -33,12 +33,9 @@ def browser_setup(request):
         browser.config.window_width = 1920
         browser.config.window_height1080 = 1080
         browser.config.base_url = wiki_base_url
+
         yield browser
 
-        attach.add_html(browser)
-        attach.add_screenshot(browser)
-        attach.add_logs(browser)
-        attach.add_video(browser)
         browser.quit()
     else:
         browser_version = request.config.getoption('--browser_version')
